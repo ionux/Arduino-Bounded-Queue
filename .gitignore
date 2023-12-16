@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# IDE local files
+*.vscode
+
+# Backup files
+*.*~

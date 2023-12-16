@@ -1,5 +1,5 @@
 /**
- * ARDUINO QUEUE
+ * QueueElement.h
  * 
  * This file is part of the Arduino Queue project. You can always find the latest
  * version of this class and project at: https://github.com/ionux/Arduino-Queue
@@ -27,96 +27,62 @@
  * SOFTWARE.
  */
 
-#ifndef ARDUINO_QUEUE_H
-#define ARDUINO_QUEUE_H
 
-#include <cstdlib>
-#include <cstring>
-
-#include "QueueElement.h"
-
-/// @brief Arduino Queue class
-class Queue
+/// @brief 
+class QueueElement
 {
   public:
-    /// @brief Class constructor
-    Queue();
-
-    /// @brief Class destructor
-    ~Queue();
+    /// @brief 
+    QueueElement();
 
     /// @brief 
-    /// @param data 
-    /// @return 
-    bool enqueue (void* data);
+    ~QueueElement();
 
     /// @brief 
     /// @return 
-    QueueElement* dequeue();
+    QueueElement* getNext();
 
     /// @brief 
     /// @return 
-    QueueElement* peek();
+    QueueElement* getPrevios();
 
     /// @brief 
     /// @return 
-    unsigned int count();
+    void* getData();
+
+    /// @brief 
+    /// @param d 
+    void setData(void *d);
+
+    /// @brief 
+    /// @return 
+    char* getTag();
+
+    /// @brief 
+    /// @param t 
+    void setTag(char* t);
+
+    /// @brief 
+    /// @return 
+    char* getDescription();
+
+    /// @brief 
+    /// @param d 
+    void setDescription(char* d);
 
   private:
     /// @brief 
-    void initialize();
+    void *data;
 
     /// @brief 
-    void destroy();
+    char tag[32];
 
     /// @brief 
-    /// @param element 
-    /// @param data 
-    /// @return 
-    bool insert_next(const void *data);
+    char description[256];
 
     /// @brief 
-    /// @param element 
-    /// @param data 
-    /// @return 
-    QueueElement* remove_next();
+    QueueElement *next;
 
     /// @brief 
-    /// @return 
-    QueueElement* get_head();
-
-    /// @brief 
-    /// @return 
-    QueueElement* get_tail();
-
-    bool element_is_head(QueueElement* e); //((element) == (list)->head ? 1 : 0)
-    bool element_is_tail(QueueElement* e); //((element) == (list)->head ? 1 : 0)
-
-    /// @brief 
-    QueueElement* head;
-
-    /// @brief 
-    QueueElement* tail;
-
-    /// @brief 
-    unsigned int size;
-
-    QueueElement elements[256];
+    QueueElement *prev;
 };
-
-
-
-// Structure for linked lists.
-// typedef struct List_
-// {
-//   int                size;
-
-//   int                (*match)(const void *key1, const void *key2);
-//   void               (*destroy)(void *data);
-
-//   QueueElement           *head;
-//   QueueElement           *tail;
-// } List;
-
-
-#endif // ARDUINO_QUEUE_H
