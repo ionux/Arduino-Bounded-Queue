@@ -35,6 +35,17 @@
 
 #include "QueueElement.h"
 
+#define MAX_QUEUE_SIZE  256
+#define MIN_QUEUE_SIZE    8
+
+/// @brief 
+enum ELEMENT_TYPE
+{
+  UNKNOWN = -1,
+  HEAD    = 0,
+  TAIL    = 1
+};
+
 /// @brief Arduino Queue class
 class Queue
 {
@@ -51,6 +62,11 @@ class Queue
     bool enqueue (void* data);
 
     /// @brief 
+    /// @param e 
+    /// @return 
+    bool enqueue (QueueElement* e);
+
+    /// @brief 
     /// @return 
     QueueElement* dequeue();
 
@@ -60,7 +76,14 @@ class Queue
 
     /// @brief 
     /// @return 
-    unsigned int count();
+    unsigned int getTotalSize();
+
+    /// @brief 
+    /// @return 
+    unsigned int getUsedSize();
+
+    /// @brief 
+    void clear();
 
   private:
     /// @brief 
@@ -70,27 +93,18 @@ class Queue
     void destroy();
 
     /// @brief 
-    /// @param element 
-    /// @param data 
-    /// @return 
-    bool insert_next(const void *data);
+    /// @param d 
+    bool shift_elements();
 
     /// @brief 
-    /// @param element 
-    /// @param data 
+    /// @param e 
     /// @return 
-    QueueElement* remove_next();
+    ELEMENT_TYPE check_type(QueueElement* e);
 
     /// @brief 
-    /// @return 
-    QueueElement* get_head();
-
-    /// @brief 
-    /// @return 
-    QueueElement* get_tail();
-
-    bool element_is_head(QueueElement* e); //((element) == (list)->head ? 1 : 0)
-    bool element_is_tail(QueueElement* e); //((element) == (list)->head ? 1 : 0)
+    /// @param first 
+    /// @param second 
+    void copy_element(QueueElement* first, QueueElement* second);
 
     /// @brief 
     QueueElement* head;
@@ -99,24 +113,15 @@ class Queue
     QueueElement* tail;
 
     /// @brief 
-    unsigned int size;
+    QueueElement* next;
 
-    QueueElement elements[256];
+    /// @brief 
+    unsigned int size_total;
+
+    /// @brief 
+    unsigned int size_used;
+
+    QueueElement elements[MAX_QUEUE_SIZE];
 };
-
-
-
-// Structure for linked lists.
-// typedef struct List_
-// {
-//   int                size;
-
-//   int                (*match)(const void *key1, const void *key2);
-//   void               (*destroy)(void *data);
-
-//   QueueElement           *head;
-//   QueueElement           *tail;
-// } List;
-
 
 #endif // ARDUINO_QUEUE_H

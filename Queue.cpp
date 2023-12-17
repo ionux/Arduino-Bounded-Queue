@@ -30,6 +30,7 @@
 
 #include "Queue.h"
 
+
 Queue::Queue()
 {
   this->initialize();
@@ -42,109 +43,113 @@ Queue::~Queue()
 
 bool Queue::enqueue(void *data)
 {
-  return insert_next(data);
-}
-
-QueueElement *Queue::dequeue()
-{
-  return remove_next();
-}
-
-QueueElement *Queue::peek()
-{
-  return nullptr;
-}
-
-unsigned int Queue::count()
-{
-  return 0;
-}
-
-void Queue::initialize()
-{
-  this->size = 0;
-  this->head = nullptr;
-  this->tail = nullptr;
-}
-
-void Queue::destroy()
-{
-  bool loopCondition = true;
-
-  while (this->size > 0 && loopCondition == true)
+  if (this->shift_elements())
   {
-    if (remove_next() == nullptr)
-    {
-      loopCondition = false;
-    }
+    return false;
   }
 
-  this->size = 0;
+  this->elements[0].setData(data);
+
+  return true;
 }
 
-bool Queue::insert_next(const void *data)
+bool Queue::enqueue(QueueElement *e)
 {
-  bool returnCondition = false;
-
-  QueueElement *new_element = nullptr;
-
-  // Allocate storage for the element.
-  // TODO: refactor to be fixed size queue
-  if ((new_element = (QueueElement *)malloc(sizeof(QueueElement))) == NULL)
+  if (this->shift_elements())
   {
-    return -1;
+    return false;
   }
 
-  new_element->data = (void *)data;
+  this->copy_element(e, &this->elements[0]);
 
-  if (this->size == 0)
-  {
-    this->tail = new_element;
-  }
-
-  new_element->next = this->head;
-  this->head = new_element;
-
-  //  Adjust the size of the list to account for the inserted element.
-  this->size++;
-
-  return returnCondition;
+  return true;
 }
 
-QueueElement *Queue::remove_next()
-{
-  if (this->size <= 0 || this->head == nullptr || this->tail == nullptr)
-  {
-    this->size = 0;
-
-    return nullptr;
-  }
-
-  QueueElement *element_to_return = nullptr;
-
-  
-  
-  this->size--;
-
-  return element_to_return;
-}
-
-QueueElement *Queue::get_head()
+QueueElement* Queue::dequeue()
 {
   return this->head;
 }
 
-QueueElement *Queue::get_tail()
+QueueElement* Queue::peek()
 {
-  return this->tail;
+  // TODO
+  return nullptr;
 }
 
-bool Queue::element_is_head(QueueElement *e)
+unsigned int Queue::getTotalSize()
 {
-  return false;
+  return this->size_total;
 }
 
-bool Queue::element_is_tail(QueueElement *e)
+unsigned int Queue::getUsedSize()
 {
-  return false;
+  return this->size_used;
+}
+
+void Queue::clear()
+{
+  this->initialize();
+}
+
+void Queue::destroy()
+{
+  this->initialize();
+}
+
+bool Queue::shift_elements()
+{
+  if (this->size_used >= (this->size_total - 1))
+  {
+    // Queue is full!
+    return false;
+  }
+
+  QueueElement* curr_element = nullptr;
+  QueueElement* next_element = nullptr;
+
+  for (unsigned int i = this->size_total - 1; i > 0; i--)
+  {
+    *curr_element = this->elements[i];
+    *next_element = this->elements[i + 1];
+
+    this->copy_element(curr_element, next_element);
+
+    // erase current
+    curr_element->initialize();
+  }
+
+  // set head element to last (size used)
+  *this->head = this->elements[this->size_total - 1];
+
+  // reset tail to reference new first element
+  *this->tail = this->elements[1];
+
+  // erase first element
+  this->elements[0].initialize();
+
+  return true;
+}
+
+void Queue::initialize()
+{
+  this->size_total = MAX_QUEUE_SIZE;
+  this->size_used = 0;
+
+  for (unsigned int i = 0; i < this->size_total; i++)
+  {
+    this->elements[i].initialize();
+  }
+}
+
+ELEMENT_TYPE Queue::check_type(QueueElement *e)
+{
+  return ELEMENT_TYPE::UNKNOWN;
+}
+
+void Queue::copy_element(QueueElement *source, QueueElement *destination)
+{
+  // deep copy source into destination
+  destination->setData(source->getData());
+  destination->setDescription(source->getDescription());
+  destination->setTag(source->getTag());
 }

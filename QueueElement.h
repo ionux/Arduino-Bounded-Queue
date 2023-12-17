@@ -70,6 +70,13 @@ class QueueElement
     /// @param d 
     void setDescription(char* d);
 
+    /// @brief 
+    void initialize();
+
+    /// @brief 
+    /// @return 
+    bool isUsed();
+
   private:
     /// @brief 
     void *data;
@@ -81,8 +88,18 @@ class QueueElement
     char description[256];
 
     /// @brief 
+    bool used;
+
+    /// @brief 
     QueueElement *next;
 
     /// @brief 
     QueueElement *prev;
+
+    /// @brief 
+    /// @param e 
+    void setNext(QueueElement* e);
+
+    /// @brief 
+    void setPrevious();
 };

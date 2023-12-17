@@ -44,6 +44,14 @@ QueueElement *QueueElement::getNext()
     return nullptr;
 }
 
+void QueueElement::setNext(QueueElement *e)
+{
+}
+
+void QueueElement::setPrevious()
+{
+}
+
 QueueElement *QueueElement::getPrevios()
 {
     return nullptr;
@@ -74,4 +82,13 @@ char *QueueElement::getDescription()
 
 void QueueElement::setDescription(char *d)
 {
+}
+
+void QueueElement::initialize()
+{
+}
+
+bool QueueElement::isUsed()
+{
+    return false;
 }
