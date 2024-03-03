@@ -67,12 +67,14 @@ namespace BoundedQueue
 
   void *Element::getData()
   {
-    return nullptr;
+    return this->data;
   }
 
   bool Element::setData(void *d)
   {
-    return false;
+    this->data = d;
+
+    return true;
   }
 
   const char *Element::getTag()
