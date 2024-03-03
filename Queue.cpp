@@ -2,7 +2,7 @@
  * ARDUINO BOUNDED QUEUE
  * 
  * This file is part of the Arduino Bounded Queue project. You can always find the latest
- * version of this class and project at: https://github.com/ionux/Arduino-Queue
+ * version of this class and project at: https://github.com/ionux/Arduino-Bounded-Queue
  * 
  * MIT License
  * 

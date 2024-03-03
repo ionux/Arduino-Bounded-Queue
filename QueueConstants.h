@@ -2,7 +2,7 @@
  * ARDUINO BOUNDED QUEUE
  * 
  * This file is part of the Arduino Bounded Queue project. You can always find the latest
- * version of this class and project at: https://github.com/ionux/Arduino-Queue
+ * version of this class and project at: https://github.com/ionux/Arduino-Bounded-Queue
  * 
  * MIT License
  * 
@@ -27,8 +27,8 @@
  * SOFTWARE.
  */
 
-#ifndef ARDUINO_QUEUE_CONSTANTS_H
-#define ARDUINO_QUEUE_CONSTANTS_H
+#ifndef ARDUINO_BOUNDED_QUEUE_CONSTANTS_H
+#define ARDUINO_BOUNDED_QUEUE_CONSTANTS_H
 
 #define MAX_QUEUE_SIZE  256
 #define MIN_QUEUE_SIZE    8
@@ -38,4 +38,4 @@
 
 #define QUEUE_DEBUG false
 
-#endif // ARDUINO_QUEUE_CONSTANTS_H
+#endif // ARDUINO_BOUNDED_QUEUE_CONSTANTS_H

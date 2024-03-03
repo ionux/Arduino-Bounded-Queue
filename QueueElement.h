@@ -2,7 +2,7 @@
  * ARDUINO BOUNDED QUEUE
  * 
  * This file is part of the Arduino Bounded Queue project. You can always find the latest
- * version of this class and project at: https://github.com/ionux/Arduino-Queue
+ * version of this class and project at: https://github.com/ionux/Arduino-Bounded-Queue
  * 
  * MIT License
  * 
@@ -27,8 +27,8 @@
  * SOFTWARE.
  */
 
-#ifndef ARDUINO_QUEUE_ELEMENT_H
-#define ARDUINO_QUEUE_ELEMENT_H
+#ifndef ARDUINO_BOUNDED_QUEUE_ELEMENT_H
+#define ARDUINO_BOUNDED_QUEUE_ELEMENT_H
 
 #include "QueueConstants.h"
 
@@ -132,4 +132,4 @@ class QueueElement
     ELEMENT_TYPE myType;
 };
 
-#endif // ARDUINO_QUEUE_ELEMENT_H
+#endif // ARDUINO_BOUNDED_QUEUE_ELEMENT_H
