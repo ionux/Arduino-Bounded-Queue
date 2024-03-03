@@ -1,12 +1,12 @@
 /**
- * QueueElement.h
+ * ARDUINO BOUNDED QUEUE
  * 
- * This file is part of the Arduino Queue project. You can always find the latest
+ * This file is part of the Arduino Bounded Queue project. You can always find the latest
  * version of this class and project at: https://github.com/ionux/Arduino-Queue
  * 
  * MIT License
  * 
- * Copyright (c) 2023 Rich Morgan <rich.l.morgan@gmail.com>
+ * Copyright (c) 2024 Rich Morgan <rich.l.morgan@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,15 +27,29 @@
  * SOFTWARE.
  */
 
+#ifndef ARDUINO_QUEUE_ELEMENT_H
+#define ARDUINO_QUEUE_ELEMENT_H
+
+#include "QueueConstants.h"
+
+/// @brief 
+enum ELEMENT_TYPE
+{
+  UNKNOWN = -1,
+  HEAD    = 0,
+  TAIL    = 1,
+  MEMBER  = 2
+};
+
 
 /// @brief 
 class QueueElement
 {
   public:
-    /// @brief 
+    /// @brief Default constructor.
     QueueElement();
 
-    /// @brief 
+    /// @brief Default destructor.
     ~QueueElement();
 
     /// @brief 
@@ -44,7 +58,15 @@ class QueueElement
 
     /// @brief 
     /// @return 
-    QueueElement* getPrevios();
+    bool setNext(QueueElement* e);
+
+    /// @brief 
+    /// @return 
+    QueueElement* getPrevious();
+
+    /// @brief 
+    /// @return 
+    bool setPrevious(QueueElement* e);
 
     /// @brief 
     /// @return 
@@ -52,7 +74,7 @@ class QueueElement
 
     /// @brief 
     /// @param d 
-    void setData(void *d);
+    bool setData(void *d);
 
     /// @brief 
     /// @return 
@@ -60,7 +82,7 @@ class QueueElement
 
     /// @brief 
     /// @param t 
-    void setTag(char* t);
+    bool setTag(char* t);
 
     /// @brief 
     /// @return 
@@ -68,24 +90,34 @@ class QueueElement
 
     /// @brief 
     /// @param d 
-    void setDescription(char* d);
+    bool setDescription(char* d);
 
     /// @brief 
-    void initialize();
+    bool initialize();
 
     /// @brief 
     /// @return 
     bool isUsed();
+
+    /// @brief 
+    /// @param e 
+    /// @return 
+    ELEMENT_TYPE getType();
+
+    /// @brief 
+    /// @param t 
+    /// @return 
+    bool setType(ELEMENT_TYPE t);
 
   private:
     /// @brief 
     void *data;
 
     /// @brief 
-    char tag[32];
+    char tag[MAX_QE_TAG_SIZE];
 
     /// @brief 
-    char description[256];
+    char description[MAX_QE_DESCRIPTION_SIZE];
 
     /// @brief 
     bool used;
@@ -97,9 +129,7 @@ class QueueElement
     QueueElement *prev;
 
     /// @brief 
-    /// @param e 
-    void setNext(QueueElement* e);
-
-    /// @brief 
-    void setPrevious();
+    ELEMENT_TYPE myType;
 };
+
+#endif // ARDUINO_QUEUE_ELEMENT_H

@@ -1,13 +1,13 @@
 # !!!!This is a Work In Progress!!!!
 
-# Arduino-Queue
-Helpful software library for quickly &amp; easily adding support for queues to your Arduino project.
+# Arduino-Bounded-Queue
+Helpful software library for quickly &amp; easily adding support for fixed-size queues to your Arduino project.
 
 
 ## Description
 A queue is a type of linear data structure that provides a consistent way to manage information.  Queues have a number of useful properties that make them perfect for situations when you need to "queue up" data to be processed in a sequential & orderly manner, like a buffer.
 
-Basically, imagine standing in line to ride a roller coaster.  New riders are added to the end of the line when they walk up.  Only people at the front of the line are allowed to board & ride the coaster when it arrives at the station.  Everyone else in line are moved up when others are removed from the front.
+Basically it works like this: imagine standing in line to ride a roller coaster.  New riders are added to the end of the line when they walk up.  Only people at the front of the line are allowed to board & ride the coaster when it arrives at the station.  Everyone else in line are moved up when others are removed from the front.
 
 This is exactly how a queue stores data:  new items are only added (enqueue) to the rear, existing items are only removed (dequeue) from the front.  Another operation, peek, allows you to see what the next item is without actually removing it.  In more formal terms, a queue is classified as a first-in, first-out (FIFO) data structure.
 
@@ -29,7 +29,7 @@ If you've found a bug or improvement, feel free to submit an update!  Here's how
 ## License
 MIT License
 
-Copyright (c) 2023 Rich Morgan
+Copyright (c) 2024 Rich Morgan <rich.l.morgan@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

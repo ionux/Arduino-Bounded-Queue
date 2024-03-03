@@ -1,12 +1,12 @@
 /**
- * ARDUINO QUEUE
+ * ARDUINO BOUNDED QUEUE
  * 
- * This file is part of the Arduino Queue project. You can always find the latest
+ * This file is part of the Arduino Bounded Queue project. You can always find the latest
  * version of this class and project at: https://github.com/ionux/Arduino-Queue
  * 
  * MIT License
  * 
- * Copyright (c) 2023 Rich Morgan <rich.l.morgan@gmail.com>
+ * Copyright (c) 2024 Rich Morgan <rich.l.morgan@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,7 +43,7 @@ Queue::~Queue()
 
 bool Queue::enqueue(void *data)
 {
-  if (this->shift_elements())
+  if (this->shiftElements())
   {
     return false;
   }
@@ -55,12 +55,12 @@ bool Queue::enqueue(void *data)
 
 bool Queue::enqueue(QueueElement *e)
 {
-  if (this->shift_elements())
+  if (this->shiftElements())
   {
     return false;
   }
 
-  this->copy_element(e, &this->elements[0]);
+  this->copyElement(e, &this->elements[0]);
 
   return true;
 }
@@ -78,27 +78,27 @@ QueueElement* Queue::peek()
 
 unsigned int Queue::getTotalSize()
 {
-  return this->size_total;
+  return this->sizeTotal;
 }
 
 unsigned int Queue::getUsedSize()
 {
-  return this->size_used;
+  return this->sizeUsed;
 }
 
-void Queue::clear()
+bool Queue::clear()
 {
   this->initialize();
 }
 
-void Queue::destroy()
+bool Queue::destroy()
 {
   this->initialize();
 }
 
-bool Queue::shift_elements()
+bool Queue::shiftElements()
 {
-  if (this->size_used >= (this->size_total - 1))
+  if (this->sizeUsed >= (this->sizeTotal - 1))
   {
     // Queue is full!
     return false;
@@ -107,19 +107,19 @@ bool Queue::shift_elements()
   QueueElement* curr_element = nullptr;
   QueueElement* next_element = nullptr;
 
-  for (unsigned int i = this->size_total - 1; i > 0; i--)
+  for (unsigned int i = this->sizeTotal - 1; i > 0; i--)
   {
     *curr_element = this->elements[i];
     *next_element = this->elements[i + 1];
 
-    this->copy_element(curr_element, next_element);
+    this->copyElement(curr_element, next_element);
 
     // erase current
     curr_element->initialize();
   }
 
   // set head element to last (size used)
-  *this->head = this->elements[this->size_total - 1];
+  *this->head = this->elements[this->sizeTotal - 1];
 
   // reset tail to reference new first element
   *this->tail = this->elements[1];
@@ -130,23 +130,23 @@ bool Queue::shift_elements()
   return true;
 }
 
-void Queue::initialize()
+bool Queue::initialize()
 {
-  this->size_total = MAX_QUEUE_SIZE;
-  this->size_used = 0;
+  this->sizeTotal = MAX_QUEUE_SIZE;
+  this->sizeUsed = 0;
 
-  for (unsigned int i = 0; i < this->size_total; i++)
+  for (unsigned int i = 0; i < this->sizeTotal; i++)
   {
     this->elements[i].initialize();
   }
 }
 
-ELEMENT_TYPE Queue::check_type(QueueElement *e)
+unsigned int Queue::getFreeSpace()
 {
-  return ELEMENT_TYPE::UNKNOWN;
+  return MAX_QUEUE_SIZE - this->sizeUsed;
 }
 
-void Queue::copy_element(QueueElement *source, QueueElement *destination)
+bool Queue::copyElement(QueueElement *source, QueueElement *destination)
 {
   // deep copy source into destination
   destination->setData(source->getData());

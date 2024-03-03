@@ -1,12 +1,12 @@
 /**
- * ARDUINO QUEUE
+ * ARDUINO BOUNDED QUEUE
  * 
- * This file is part of the Arduino Queue project. You can always find the latest
+ * This file is part of the Arduino Bounded Queue project. You can always find the latest
  * version of this class and project at: https://github.com/ionux/Arduino-Queue
  * 
  * MIT License
  * 
- * Copyright (c) 2023 Rich Morgan <rich.l.morgan@gmail.com>
+ * Copyright (c) 2024 Rich Morgan <rich.l.morgan@gmail.com>
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,18 +33,9 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "QueueConstants.h"
 #include "QueueElement.h"
 
-#define MAX_QUEUE_SIZE  256
-#define MIN_QUEUE_SIZE    8
-
-/// @brief 
-enum ELEMENT_TYPE
-{
-  UNKNOWN = -1,
-  HEAD    = 0,
-  TAIL    = 1
-};
 
 /// @brief Arduino Queue class
 class Queue
@@ -80,31 +71,34 @@ class Queue
 
     /// @brief 
     /// @return 
+    unsigned int getMaxSize();
+
+    /// @brief 
+    /// @return 
     unsigned int getUsedSize();
 
     /// @brief 
-    void clear();
+    /// @return 
+    unsigned int getFreeSpace();
+
+    /// @brief 
+    bool clear();
 
   private:
     /// @brief 
-    void initialize();
+    bool initialize();
 
     /// @brief 
-    void destroy();
+    bool destroy();
 
     /// @brief 
     /// @param d 
-    bool shift_elements();
-
-    /// @brief 
-    /// @param e 
-    /// @return 
-    ELEMENT_TYPE check_type(QueueElement* e);
+    bool shiftElements();
 
     /// @brief 
     /// @param first 
     /// @param second 
-    void copy_element(QueueElement* first, QueueElement* second);
+    bool copyElement(QueueElement* source, QueueElement* destination);
 
     /// @brief 
     QueueElement* head;
@@ -116,10 +110,13 @@ class Queue
     QueueElement* next;
 
     /// @brief 
-    unsigned int size_total;
+    QueueElement* previous;
 
     /// @brief 
-    unsigned int size_used;
+    unsigned int sizeTotal;
+
+    /// @brief 
+    unsigned int sizeUsed;
 
     QueueElement elements[MAX_QUEUE_SIZE];
 };
