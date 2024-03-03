@@ -1,23 +1,23 @@
 /**
  * ARDUINO BOUNDED QUEUE
- * 
+ *
  * This file is part of the Arduino Bounded Queue project. You can always find the latest
  * version of this class and project at: https://github.com/ionux/Arduino-Bounded-Queue
- * 
+ *
  * MIT License
- * 
+ *
  * Copyright (c) 2024 Rich Morgan <rich.l.morgan@gmail.com>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -30,106 +30,109 @@
 #ifndef ARDUINO_BOUNDED_QUEUE_ELEMENT_H
 #define ARDUINO_BOUNDED_QUEUE_ELEMENT_H
 
-#include "QueueConstants.h"
+#include "BoundedQueueConstants.h"
 
-/// @brief 
-enum ELEMENT_TYPE
+/// @brief Arduino Bounded Queue project namespace
+namespace BoundedQueue
 {
-  UNKNOWN = -1,
-  HEAD    = 0,
-  TAIL    = 1,
-  MEMBER  = 2
-};
+  /// @brief
+  enum ELEMENT_TYPE
+  {
+    UNKNOWN = -1,
+    HEAD = 0,
+    TAIL = 1,
+    MEMBER = 2
+  };
 
-
-/// @brief 
-class QueueElement
-{
+  /// @brief
+  class Element
+  {
   public:
     /// @brief Default constructor.
-    QueueElement();
+    Element();
 
     /// @brief Default destructor.
-    ~QueueElement();
+    ~Element();
 
-    /// @brief 
-    /// @return 
-    QueueElement* getNext();
+    /// @brief
+    /// @return
+    Element *getNext();
 
-    /// @brief 
-    /// @return 
-    bool setNext(QueueElement* e);
+    /// @brief
+    /// @return
+    bool setNext(Element *e);
 
-    /// @brief 
-    /// @return 
-    QueueElement* getPrevious();
+    /// @brief
+    /// @return
+    Element *getPrevious();
 
-    /// @brief 
-    /// @return 
-    bool setPrevious(QueueElement* e);
+    /// @brief
+    /// @return
+    bool setPrevious(Element *e);
 
-    /// @brief 
-    /// @return 
-    void* getData();
+    /// @brief
+    /// @return
+    void *getData();
 
-    /// @brief 
-    /// @param d 
+    /// @brief
+    /// @param d
     bool setData(void *d);
 
-    /// @brief 
-    /// @return 
-    char* getTag();
+    /// @brief
+    /// @return
+    char *getTag();
 
-    /// @brief 
-    /// @param t 
-    bool setTag(char* t);
+    /// @brief
+    /// @param t
+    bool setTag(char *t);
 
-    /// @brief 
-    /// @return 
-    char* getDescription();
+    /// @brief
+    /// @return
+    char *getDescription();
 
-    /// @brief 
-    /// @param d 
-    bool setDescription(char* d);
+    /// @brief
+    /// @param d
+    bool setDescription(char *d);
 
-    /// @brief 
+    /// @brief
     bool initialize();
 
-    /// @brief 
-    /// @return 
+    /// @brief
+    /// @return
     bool isUsed();
 
-    /// @brief 
-    /// @param e 
-    /// @return 
+    /// @brief
+    /// @param e
+    /// @return
     ELEMENT_TYPE getType();
 
-    /// @brief 
-    /// @param t 
-    /// @return 
+    /// @brief
+    /// @param t
+    /// @return
     bool setType(ELEMENT_TYPE t);
 
   private:
-    /// @brief 
+    /// @brief
     void *data;
 
-    /// @brief 
-    char tag[MAX_QE_TAG_SIZE];
+    /// @brief
+    char tag[MAX_TAG_SIZE];
 
-    /// @brief 
-    char description[MAX_QE_DESCRIPTION_SIZE];
+    /// @brief
+    char description[MAX_DESCRIPTION_SIZE];
 
-    /// @brief 
+    /// @brief
     bool used;
 
-    /// @brief 
-    QueueElement *next;
+    /// @brief
+    Element *next;
 
-    /// @brief 
-    QueueElement *prev;
+    /// @brief
+    Element *prev;
 
-    /// @brief 
+    /// @brief
     ELEMENT_TYPE myType;
-};
+  };
+} // namespace BoundedQueue
 
 #endif // ARDUINO_BOUNDED_QUEUE_ELEMENT_H

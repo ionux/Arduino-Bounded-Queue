@@ -1,23 +1,23 @@
 /**
  * ARDUINO BOUNDED QUEUE
- * 
+ *
  * This file is part of the Arduino Bounded Queue project. You can always find the latest
  * version of this class and project at: https://github.com/ionux/Arduino-Bounded-Queue
- * 
+ *
  * MIT License
- * 
+ *
  * Copyright (c) 2024 Rich Morgan <rich.l.morgan@gmail.com>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -33,13 +33,15 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "QueueConstants.h"
-#include "QueueElement.h"
+#include "BoundedQueueConstants.h"
+#include "BoundedQueueElement.h"
 
-
-/// @brief Arduino Queue class
-class Queue
+/// @brief Arduino Bounded Queue project namespace
+namespace BoundedQueue
 {
+  /// @brief Arduino Bounded Queue class
+  class Queue
+  {
   public:
     /// @brief Class constructor
     Queue();
@@ -47,78 +49,80 @@ class Queue
     /// @brief Class destructor
     ~Queue();
 
-    /// @brief 
-    /// @param data 
-    /// @return 
-    bool enqueue (void* data);
+    /// @brief
+    /// @param data
+    /// @return
+    bool enqueue(void *data);
 
-    /// @brief 
-    /// @param e 
-    /// @return 
-    bool enqueue (QueueElement* e);
+    /// @brief
+    /// @param e
+    /// @return
+    bool enqueue(Element *e);
 
-    /// @brief 
-    /// @return 
-    QueueElement* dequeue();
+    /// @brief
+    /// @return
+    Element *dequeue();
 
-    /// @brief 
-    /// @return 
-    QueueElement* peek();
+    /// @brief
+    /// @return
+    Element *peek();
 
-    /// @brief 
-    /// @return 
+    /// @brief
+    /// @return
     unsigned int getTotalSize();
 
-    /// @brief 
-    /// @return 
+    /// @brief
+    /// @return
     unsigned int getMaxSize();
 
-    /// @brief 
-    /// @return 
+    /// @brief
+    /// @return
     unsigned int getUsedSize();
 
-    /// @brief 
-    /// @return 
+    /// @brief
+    /// @return
     unsigned int getFreeSpace();
 
-    /// @brief 
+    /// @brief
     bool clear();
 
   private:
-    /// @brief 
+    /// @brief
     bool initialize();
 
-    /// @brief 
+    /// @brief
     bool destroy();
 
-    /// @brief 
-    /// @param d 
+    /// @brief
+    /// @param d
     bool shiftElements();
 
-    /// @brief 
-    /// @param first 
-    /// @param second 
-    bool copyElement(QueueElement* source, QueueElement* destination);
+    /// @brief
+    /// @param first
+    /// @param second
+    bool copyElement(Element *source, Element *destination);
 
-    /// @brief 
-    QueueElement* head;
+    /// @brief
+    Element *head;
 
-    /// @brief 
-    QueueElement* tail;
+    /// @brief
+    Element *tail;
 
-    /// @brief 
-    QueueElement* next;
+    /// @brief
+    Element *next;
 
-    /// @brief 
-    QueueElement* previous;
+    /// @brief
+    Element *previous;
 
-    /// @brief 
+    /// @brief
     unsigned int sizeTotal;
 
-    /// @brief 
+    /// @brief
     unsigned int sizeUsed;
 
-    QueueElement elements[MAX_QUEUE_SIZE];
-};
+    Element elements[MAX_QUEUE_SIZE];
+  };
+
+} // namespace BoundedQueue
 
 #endif // ARDUINO_BOUNDED_QUEUE_H

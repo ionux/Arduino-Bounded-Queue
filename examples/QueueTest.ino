@@ -1,5 +1,5 @@
 /*
-  Arduino Queue Example Sketch
+  Arduino Bounded Queue Example Sketch
 
   Author:  Rich Morgan <rich.l.morgan@gmail.com>
   Date:    18/12/2023
