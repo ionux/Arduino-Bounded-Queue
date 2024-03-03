@@ -56,7 +56,7 @@ namespace BoundedQueue
 
     /// @brief
     /// @return
-    Element *getNext();
+    const Element *getNext();
 
     /// @brief
     /// @return
@@ -64,7 +64,7 @@ namespace BoundedQueue
 
     /// @brief
     /// @return
-    Element *getPrevious();
+    const Element *getPrevious();
 
     /// @brief
     /// @return
@@ -80,19 +80,19 @@ namespace BoundedQueue
 
     /// @brief
     /// @return
-    char *getTag();
+    const char *getTag();
 
     /// @brief
     /// @param t
-    bool setTag(char *t);
+    bool setTag(const char *t);
 
     /// @brief
     /// @return
-    char *getDescription();
+    const char *getDescription();
 
     /// @brief
     /// @param d
-    bool setDescription(char *d);
+    bool setDescription(const char *d);
 
     /// @brief
     bool initialize();
@@ -104,12 +104,12 @@ namespace BoundedQueue
     /// @brief
     /// @param e
     /// @return
-    ELEMENT_TYPE getType();
+    const ELEMENT_TYPE getType();
 
     /// @brief
     /// @param t
     /// @return
-    bool setType(ELEMENT_TYPE t);
+    bool setType(const ELEMENT_TYPE t);
 
   private:
     /// @brief

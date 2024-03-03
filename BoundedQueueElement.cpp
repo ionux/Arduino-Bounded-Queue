@@ -41,24 +41,28 @@ namespace BoundedQueue
     this->initialize();
   }
 
-  Element *Element::getNext()
+  const Element *Element::getNext()
   {
-    return nullptr;
+    return this->next;
   }
 
   bool Element::setNext(Element *e)
   {
-    return false;
+    this->next = e;
+
+    return true;
   }
 
   bool Element::setPrevious(Element *e)
   {
-    return false;
+    this->prev = e;
+
+    return true;
   }
 
-  Element *Element::getPrevious()
+  const Element *Element::getPrevious()
   {
-    return nullptr;
+    return this->prev;
   }
 
   void *Element::getData()
@@ -71,23 +75,49 @@ namespace BoundedQueue
     return false;
   }
 
-  char *Element::getTag()
+  const char *Element::getTag()
   {
-    return nullptr;
+    return this->tag;
   }
 
-  bool Element::setTag(char *t)
+  bool Element::setTag(const char *t)
   {
+    if (t != nullptr)
+    {
+      for (unsigned int i = 0; (i < MAX_TAG_SIZE) && (t[i] != '\0'); i++)
+      {
+        this->tag[i] = static_cast<char>(t[i]);
+      }
+
+      // Ensure the tag is null-terminated
+      this->tag[MAX_TAG_SIZE - 1] = '\0';
+
+      return true;
+    }
+
     return false;
   }
 
-  char *Element::getDescription()
+  const char *Element::getDescription()
   {
-    return nullptr;
+    return this->description;
   }
 
-  bool Element::setDescription(char *d)
+  bool Element::setDescription(const char *d)
   {
+    if (d != nullptr)
+    {
+      for (unsigned int i = 0; (i < MAX_DESCRIPTION_SIZE) && (d[i] != '\0'); i++)
+      {
+        this->description[i] = static_cast<char>(d[i]);
+      }
+
+      // Ensure the description is null-terminated
+      this->description[MAX_DESCRIPTION_SIZE - 1] = '\0';
+
+      return true;
+    }
+
     return false;
   }
 
@@ -103,12 +133,12 @@ namespace BoundedQueue
 
     for (unsigned int i = 0; i < MAX_DESCRIPTION_SIZE; i++)
     {
-      this->description[i] = {0};
+      this->description[i] = '\0';
     }
 
     for (unsigned int i = 0; i < MAX_TAG_SIZE; i++)
     {
-      this->tag[i] = {0};
+      this->tag[i] = '\0';
     }
 
     return true;
@@ -119,12 +149,12 @@ namespace BoundedQueue
     return this->used;
   }
 
-  ELEMENT_TYPE Element::getType()
+  const ELEMENT_TYPE Element::getType()
   {
     return this->myType;
   }
 
-  bool Element::setType(ELEMENT_TYPE t)
+  bool Element::setType(const ELEMENT_TYPE t)
   {
     switch (t)
     {
