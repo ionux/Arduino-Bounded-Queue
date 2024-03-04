@@ -33,12 +33,14 @@ namespace BoundedQueue
 {
   Element::Element()
   {
-    this->initialize();
+    // Ignoring return code for first initialization.
+    (void)this->initialize();
   }
 
   Element::~Element()
   {
-    this->initialize();
+    // Ignoring return code for destruction.
+    (void)this->initialize();
   }
 
   const Element *Element::getNext()
