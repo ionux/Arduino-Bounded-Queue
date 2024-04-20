@@ -31,156 +31,156 @@
 
 namespace BoundedQueue
 {
-  Element::Element()
-  {
-    // Ignoring return code for first initialization.
-    (void)this->initialize();
-  }
-
-  Element::~Element()
-  {
-    // Ignoring return code for destruction.
-    (void)this->initialize();
-  }
-
-  const Element *Element::getNext()
-  {
-    return this->next;
-  }
-
-  bool Element::setNext(Element *e)
-  {
-    this->next = e;
-
-    return true;
-  }
-
-  bool Element::setPrevious(Element *e)
-  {
-    this->prev = e;
-
-    return true;
-  }
-
-  const Element *Element::getPrevious()
-  {
-    return this->prev;
-  }
-
-  void *Element::getData()
-  {
-    return this->data;
-  }
-
-  bool Element::setData(void *d)
-  {
-    this->data = d;
-
-    return true;
-  }
-
-  const char *Element::getTag()
-  {
-    return this->tag;
-  }
-
-  bool Element::setTag(const char *t)
-  {
-    if (t != nullptr)
+    Element::Element()
     {
-      for (unsigned int i = 0; (i < MAX_TAG_SIZE) && (t[i] != '\0'); i++)
-      {
-        this->tag[i] = static_cast<char>(t[i]);
-      }
-
-      // Ensure the tag is null-terminated
-      this->tag[MAX_TAG_SIZE - 1] = '\0';
-
-      return true;
+        // Ignoring return code for first initialization.
+        (void)this->initialize();
     }
 
-    return false;
-  }
-
-  const char *Element::getDescription()
-  {
-    return this->description;
-  }
-
-  bool Element::setDescription(const char *d)
-  {
-    if (d != nullptr)
+    Element::~Element()
     {
-      for (unsigned int i = 0; (i < MAX_DESCRIPTION_SIZE) && (d[i] != '\0'); i++)
-      {
-        this->description[i] = static_cast<char>(d[i]);
-      }
-
-      // Ensure the description is null-terminated
-      this->description[MAX_DESCRIPTION_SIZE - 1] = '\0';
-
-      return true;
+        // Ignoring return code for destruction.
+        (void)this->initialize();
     }
 
-    return false;
-  }
-
-  bool Element::initialize()
-  {
-    this->data = nullptr;
-    this->next = nullptr;
-    this->prev = nullptr;
-
-    this->myType = ELEMENT_TYPE::UNKNOWN;
-
-    this->used = false;
-
-    for (unsigned int i = 0; i < MAX_DESCRIPTION_SIZE; i++)
+    const Element *Element::getNext()
     {
-      this->description[i] = '\0';
+        return this->next;
     }
 
-    for (unsigned int i = 0; i < MAX_TAG_SIZE; i++)
+    bool Element::setNext(Element *e)
     {
-      this->tag[i] = '\0';
+        this->next = e;
+
+        return true;
     }
 
-    return true;
-  }
-
-  bool Element::isUsed()
-  {
-    return this->used;
-  }
-
-  const ELEMENT_TYPE Element::getType()
-  {
-    return this->myType;
-  }
-
-  bool Element::setType(const ELEMENT_TYPE t)
-  {
-    switch (t)
+    bool Element::setPrevious(Element *e)
     {
-    case ELEMENT_TYPE::HEAD:
-      this->myType = ELEMENT_TYPE::HEAD;
-      break;
-    case ELEMENT_TYPE::TAIL:
-      this->myType = ELEMENT_TYPE::TAIL;
-      break;
-    case ELEMENT_TYPE::MEMBER:
-      // Member is an intermediate element, i.e. not head or tail but in the queue somewhere.
-      this->myType = ELEMENT_TYPE::MEMBER;
-      break;
-    case ELEMENT_TYPE::UNKNOWN:
-      // Should never assign this aside from initialization or deletion.
-      // Intentional fall through.
-    default:
-      // Satisfies safety compliance guidelines. Log if enabled?
-      this->myType = ELEMENT_TYPE::UNKNOWN;
-      break;
+        this->prev = e;
+
+        return true;
     }
 
-    return false;
-  }
+    const Element *Element::getPrevious()
+    {
+        return this->prev;
+    }
+
+    void *Element::getData()
+    {
+        return this->data;
+    }
+
+    bool Element::setData(void *d)
+    {
+        this->data = d;
+
+        return true;
+    }
+
+    const char *Element::getTag()
+    {
+        return this->tag;
+    }
+
+    bool Element::setTag(const char *t)
+    {
+        if (t != NULL)
+        {
+            for (unsigned int i = 0; (i < MAX_TAG_SIZE) && (t[i] != '\0'); i++)
+            {
+                this->tag[i] = static_cast<char>(t[i]);
+            }
+
+            // Ensure the tag is null-terminated
+            this->tag[MAX_TAG_SIZE - 1] = '\0';
+
+            return true;
+        }
+
+        return false;
+    }
+
+    const char *Element::getDescription()
+    {
+        return this->description;
+    }
+
+    bool Element::setDescription(const char *d)
+    {
+        if (d != NULL)
+        {
+            for (unsigned int i = 0; (i < MAX_DESCRIPTION_SIZE) && (d[i] != '\0'); i++)
+            {
+                this->description[i] = static_cast<char>(d[i]);
+            }
+
+            // Ensure the description is null-terminated
+            this->description[MAX_DESCRIPTION_SIZE - 1] = '\0';
+
+            return true;
+        }
+
+        return false;
+    }
+
+    bool Element::initialize()
+    {
+        this->data = NULL;
+        this->next = NULL;
+        this->prev = NULL;
+
+        this->myType = UNKNOWN;
+
+        this->used = false;
+
+        for (unsigned int i = 0; i < MAX_DESCRIPTION_SIZE; i++)
+        {
+            this->description[i] = '\0';
+        }
+
+        for (unsigned int i = 0; i < MAX_TAG_SIZE; i++)
+        {
+            this->tag[i] = '\0';
+        }
+
+        return true;
+    }
+
+    bool Element::isUsed()
+    {
+        return this->used;
+    }
+
+    const ELEMENT_TYPE Element::getType()
+    {
+        return this->myType;
+    }
+
+    bool Element::setType(const ELEMENT_TYPE t)
+    {
+        switch (t)
+        {
+        case HEAD:
+            this->myType = HEAD;
+            break;
+        case TAIL:
+            this->myType = TAIL;
+            break;
+        case MEMBER:
+            // Member is an intermediate element, i.e. not head or tail but in the queue somewhere.
+            this->myType = MEMBER;
+            break;
+        case UNKNOWN:
+            // Should never assign this aside from initialization or deletion.
+            // Intentional fall through.
+        default:
+            // Satisfies safety compliance guidelines. Log if enabled?
+            this->myType = UNKNOWN;
+            break;
+        }
+
+        return false;
+    }
 } // namespace BoundedQueue

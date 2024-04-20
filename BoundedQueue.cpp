@@ -31,127 +31,127 @@
 
 namespace BoundedQueue
 {
-  Queue::Queue()
-  {
-    this->initialize();
-  }
-
-  Queue::~Queue()
-  {
-    this->destroy();
-  }
-
-  bool Queue::enqueue(void *data)
-  {
-    if (this->shiftElements())
+    Queue::Queue()
     {
-      return false;
+        this->initialize();
     }
 
-    this->elements[0].setData(data);
-
-    return true;
-  }
-
-  bool Queue::enqueue(Element *e)
-  {
-    if (this->shiftElements())
+    Queue::~Queue()
     {
-      return false;
+        this->destroy();
     }
 
-    this->copyElement(e, &this->elements[0]);
-
-    return true;
-  }
-
-  Element *Queue::dequeue()
-  {
-    return this->head;
-  }
-
-  Element *Queue::peek()
-  {
-    // TODO
-    return nullptr;
-  }
-
-  unsigned int Queue::getTotalSize()
-  {
-    return this->sizeTotal;
-  }
-
-  unsigned int Queue::getUsedSize()
-  {
-    return this->sizeUsed;
-  }
-
-  bool Queue::clear()
-  {
-    this->initialize();
-  }
-
-  bool Queue::destroy()
-  {
-    this->initialize();
-  }
-
-  bool Queue::shiftElements()
-  {
-    if (this->sizeUsed >= (this->sizeTotal - 1))
+    bool Queue::enqueue(void *data)
     {
-      // Queue is full!
-      return false;
+        if (this->shiftElements())
+        {
+            return false;
+        }
+
+        this->elements[0].setData(data);
+
+        return true;
     }
 
-    Element *curr_element = nullptr;
-    Element *next_element = nullptr;
-
-    for (unsigned int i = this->sizeTotal - 1; i > 0; i--)
+    bool Queue::enqueue(Element *e)
     {
-      *curr_element = this->elements[i];
-      *next_element = this->elements[i + 1];
+        if (this->shiftElements())
+        {
+            return false;
+        }
 
-      this->copyElement(curr_element, next_element);
+        this->copyElement(e, &this->elements[0]);
 
-      // erase current
-      curr_element->initialize();
+        return true;
     }
 
-    // set head element to last (size used)
-    *this->head = this->elements[this->sizeTotal - 1];
-
-    // reset tail to reference new first element
-    *this->tail = this->elements[1];
-
-    // erase first element
-    this->elements[0].initialize();
-
-    return true;
-  }
-
-  bool Queue::initialize()
-  {
-    this->sizeTotal = MAX_QUEUE_SIZE;
-    this->sizeUsed = 0;
-
-    for (unsigned int i = 0; i < this->sizeTotal; i++)
+    Element *Queue::dequeue()
     {
-      this->elements[i].initialize();
+        return this->head;
     }
-  }
 
-  unsigned int Queue::getFreeSpace()
-  {
-    return MAX_QUEUE_SIZE - this->sizeUsed;
-  }
+    Element *Queue::peek()
+    {
+        // TODO
+        return NULL;
+    }
 
-  bool Queue::copyElement(Element *source, Element *destination)
-  {
-    // deep copy source into destination
-    destination->setData(source->getData());
-    destination->setDescription(source->getDescription());
-    destination->setTag(source->getTag());
-  }
+    unsigned int Queue::getTotalSize()
+    {
+        return this->sizeTotal;
+    }
+
+    unsigned int Queue::getUsedSize()
+    {
+        return this->sizeUsed;
+    }
+
+    bool Queue::clear()
+    {
+        this->initialize();
+    }
+
+    bool Queue::destroy()
+    {
+        this->initialize();
+    }
+
+    bool Queue::shiftElements()
+    {
+        if (this->sizeUsed >= (this->sizeTotal - 1))
+        {
+            // Queue is full!
+            return false;
+        }
+
+        Element *curr_element = NULL;
+        Element *next_element = NULL;
+
+        for (unsigned int i = this->sizeTotal - 1; i > 0; i--)
+        {
+            *curr_element = this->elements[i];
+            *next_element = this->elements[i + 1];
+
+            this->copyElement(curr_element, next_element);
+
+            // erase current
+            curr_element->initialize();
+        }
+
+        // set head element to last (size used)
+        *this->head = this->elements[this->sizeTotal - 1];
+
+        // reset tail to reference new first element
+        *this->tail = this->elements[1];
+
+        // erase first element
+        this->elements[0].initialize();
+
+        return true;
+    }
+
+    bool Queue::initialize()
+    {
+        this->sizeTotal = MAX_QUEUE_SIZE;
+        this->sizeUsed = 0;
+
+        for (unsigned int i = 0; i < this->sizeTotal; i++)
+        {
+            this->elements[i].initialize();
+        }
+    }
+
+    unsigned int Queue::getFreeSpace()
+    {
+        return MAX_QUEUE_SIZE - this->sizeUsed;
+    }
+
+    bool Queue::copyElement(Element *source, Element *destination)
+    {
+        // deep copy source into destination
+        destination->setData(source->getData());
+        destination->setDescription(source->getDescription());
+        destination->setTag(source->getTag());
+    }
 
 } // namespace BoundedQueue

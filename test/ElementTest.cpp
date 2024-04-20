@@ -33,58 +33,57 @@
 
 namespace BoundedQueue
 {
-  class ElementTest
-  {
+    class ElementTest
+    {
     public:
-      void TestElementInitialize()
-      {
-        Element e = {};
+        void TestElementInitialize()
+        {
+            Element e;
 
-        assert(e.initialize() == true);
-        assert(e.getNext() == nullptr);
-        assert(e.getPrevious() == nullptr);
-        assert(e.getData() == nullptr);
-        assert(e.isUsed() == false);
+            assert(e.initialize() == true);
+            assert(e.getNext() == NULL);
+            assert(e.getPrevious() == NULL);
+            assert(e.getData() == NULL);
+            assert(e.isUsed() == false);
 
-        std::cout << "Element Initialization Tests Passed!" << std::endl;
-      }
+            std::cout << "Element Initialization Tests Passed!" << std::endl;
+        }
 
-      void TestElementSetNext()
-      {
-        Element e = {};
-        Element e_next = {};
+        void TestElementSetNext()
+        {
+            Element e;
+            Element e_next;
 
-        assert(e.initialize() == true);
-        assert(e_next.initialize() == true);
-        assert(e.setNext(&e_next) == true);
+            assert(e.initialize() == true);
+            assert(e_next.initialize() == true);
+            assert(e.setNext(&e_next) == true);
 
-        std::cout << "Element Set Next Tests Passed!" << std::endl;
-      }
+            std::cout << "Element Set Next Tests Passed!" << std::endl;
+        }
 
-      void TestElementGetNext()
-      {
-        Element e = {};
-        Element e_next = {};
+        void TestElementGetNext()
+        {
+            Element e;
+            Element e_next;
 
-        assert(e.initialize() == true);
-        assert(e_next.initialize() == true);
-        assert(e.setNext(&e_next) == true);
-        assert(e.getNext() == &e_next);
+            assert(e.initialize() == true);
+            assert(e_next.initialize() == true);
+            assert(e.setNext(&e_next) == true);
+            assert(e.getNext() == &e_next);
 
-        std::cout << "Element Get Next Tests Passed!" << std::endl;
-      }
+            std::cout << "Element Get Next Tests Passed!" << std::endl;
+        }
 
-      void TestElementSetTag()
-      {
-        Element e = {};
-        const char *testTagSet = "Test Tag";
+        void TestElementSetTag()
+        {
+            Element e;
+            const char *testTagSet = "Test Tag";
 
-        assert(e.initialize() == true);
-        assert(e.setTag(testTagSet) == true);
+            assert(e.initialize() == true);
+            assert(e.setTag(testTagSet) == true);
 
-        std::cout << "Element Set Tag Tests Passed!" << std::endl;
-      }
-
-  };
+            std::cout << "Element Set Tag Tests Passed!" << std::endl;
+        }
+    };
 
 }

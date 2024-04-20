@@ -39,89 +39,89 @@
 /// @brief Arduino Bounded Queue project namespace
 namespace BoundedQueue
 {
-  /// @brief Arduino Bounded Queue class
-  class Queue
-  {
-  public:
-    /// @brief Class constructor
-    Queue();
+    /// @brief Arduino Bounded Queue class
+    class Queue
+    {
+    public:
+        /// @brief Class constructor
+        Queue();
 
-    /// @brief Class destructor
-    ~Queue();
+        /// @brief Class destructor
+        ~Queue();
 
-    /// @brief
-    /// @param data
-    /// @return
-    bool enqueue(void *data);
+        /// @brief
+        /// @param data
+        /// @return
+        bool enqueue(void *data);
 
-    /// @brief
-    /// @param e
-    /// @return
-    bool enqueue(Element *e);
+        /// @brief
+        /// @param e
+        /// @return
+        bool enqueue(Element *e);
 
-    /// @brief
-    /// @return
-    Element *dequeue();
+        /// @brief
+        /// @return
+        Element *dequeue();
 
-    /// @brief
-    /// @return
-    Element *peek();
+        /// @brief
+        /// @return
+        Element *peek();
 
-    /// @brief
-    /// @return
-    unsigned int getTotalSize();
+        /// @brief
+        /// @return
+        unsigned int getTotalSize();
 
-    /// @brief
-    /// @return
-    unsigned int getMaxSize();
+        /// @brief
+        /// @return
+        unsigned int getMaxSize();
 
-    /// @brief
-    /// @return
-    unsigned int getUsedSize();
+        /// @brief
+        /// @return
+        unsigned int getUsedSize();
 
-    /// @brief
-    /// @return
-    unsigned int getFreeSpace();
+        /// @brief
+        /// @return
+        unsigned int getFreeSpace();
 
-    /// @brief
-    bool clear();
+        /// @brief
+        bool clear();
 
-  private:
-    /// @brief
-    bool initialize();
+    private:
+        /// @brief
+        bool initialize();
 
-    /// @brief
-    bool destroy();
+        /// @brief
+        bool destroy();
 
-    /// @brief
-    /// @param d
-    bool shiftElements();
+        /// @brief
+        /// @param d
+        bool shiftElements();
 
-    /// @brief
-    /// @param first
-    /// @param second
-    bool copyElement(Element *source, Element *destination);
+        /// @brief
+        /// @param first
+        /// @param second
+        bool copyElement(Element *source, Element *destination);
 
-    /// @brief
-    Element *head;
+        /// @brief
+        Element *head;
 
-    /// @brief
-    Element *tail;
+        /// @brief
+        Element *tail;
 
-    /// @brief
-    Element *next;
+        /// @brief
+        Element *next;
 
-    /// @brief
-    Element *previous;
+        /// @brief
+        Element *previous;
 
-    /// @brief
-    unsigned int sizeTotal;
+        /// @brief
+        unsigned int sizeTotal;
 
-    /// @brief
-    unsigned int sizeUsed;
+        /// @brief
+        unsigned int sizeUsed;
 
-    Element elements[MAX_QUEUE_SIZE];
-  };
+        Element elements[MAX_QUEUE_SIZE];
+    };
 
 } // namespace BoundedQueue
 

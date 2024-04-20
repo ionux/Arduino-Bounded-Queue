@@ -35,104 +35,108 @@
 /// @brief Arduino Bounded Queue project namespace
 namespace BoundedQueue
 {
-  /// @brief
-  enum ELEMENT_TYPE
-  {
-    UNKNOWN = -1,
-    HEAD = 0,
-    TAIL = 1,
-    MEMBER = 2
-  };
-
-  /// @brief
-  class Element
-  {
-  public:
-    /// @brief Default constructor.
-    Element();
-
-    /// @brief Default destructor.
-    ~Element();
+    /// @brief
+    enum ELEMENT_TYPE
+    {
+        UNKNOWN = -1,
+        HEAD = 0,
+        TAIL = 1,
+        MEMBER = 2
+    };
 
     /// @brief
-    /// @return
-    const Element *getNext();
+    class Element
+    {
+    public:
+        /// @brief Default constructor.
+        Element();
 
-    /// @brief
-    /// @return
-    bool setNext(Element *e);
+        /// @brief Default destructor.
+        ~Element();
 
-    /// @brief
-    /// @return
-    const Element *getPrevious();
+        /// @brief Get next element in queue.
+        /// @return Element*
+        const Element *getNext();
 
-    /// @brief
-    /// @return
-    bool setPrevious(Element *e);
+        /// @brief Set next element in queue.
+        /// @return True or false if succeeded.
+        bool setNext(Element *e);
 
-    /// @brief
-    /// @return
-    void *getData();
+        /// @brief Gets previous element in queue.
+        /// @return Element*
+        const Element *getPrevious();
 
-    /// @brief
-    /// @param d
-    bool setData(void *d);
+        /// @brief Sets previous element in queue.
+        /// @return True or false if succeeded.
+        bool setPrevious(Element *e);
 
-    /// @brief
-    /// @return
-    const char *getTag();
+        /// @brief Returns pointer to data in that element.
+        /// @return void*
+        void *getData();
 
-    /// @brief
-    /// @param t
-    bool setTag(const char *t);
+        /// @brief Returns pointer to data in that element.
+        /// @param d
+        /// @return True or false if succeeded.
+        bool setData(void *d);
 
-    /// @brief
-    /// @return
-    const char *getDescription();
+        /// @brief
+        /// @return
+        const char *getTag();
 
-    /// @brief
-    /// @param d
-    bool setDescription(const char *d);
+        /// @brief
+        /// @param t
+        /// @return True or false if succeeded.
+        bool setTag(const char *t);
 
-    /// @brief
-    bool initialize();
+        /// @brief
+        /// @return
+        const char *getDescription();
 
-    /// @brief
-    /// @return
-    bool isUsed();
+        /// @brief
+        /// @param d
+        /// @return True or false if succeeded.
+        bool setDescription(const char *d);
 
-    /// @brief
-    /// @param e
-    /// @return
-    const ELEMENT_TYPE getType();
+        /// @brief
+        /// @return True or false if succeeded.
+        bool initialize();
 
-    /// @brief
-    /// @param t
-    /// @return
-    bool setType(const ELEMENT_TYPE t);
+        /// @brief
+        /// @return True or false if used.
+        bool isUsed();
 
-  private:
-    /// @brief
-    void *data;
+        /// @brief
+        /// @param e
+        /// @return
+        const ELEMENT_TYPE getType();
 
-    /// @brief
-    char tag[MAX_TAG_SIZE];
+        /// @brief
+        /// @param t
+        /// @return True or false if succeeded.
+        bool setType(const ELEMENT_TYPE t);
 
-    /// @brief
-    char description[MAX_DESCRIPTION_SIZE];
+    private:
+        /// @brief
+        void *data;
 
-    /// @brief
-    bool used;
+        /// @brief
+        char tag[MAX_TAG_SIZE];
 
-    /// @brief
-    Element *next;
+        /// @brief
+        char description[MAX_DESCRIPTION_SIZE];
 
-    /// @brief
-    Element *prev;
+        /// @brief
+        bool used;
 
-    /// @brief
-    ELEMENT_TYPE myType;
-  };
+        /// @brief
+        Element *next;
+
+        /// @brief
+        Element *prev;
+
+        /// @brief
+        ELEMENT_TYPE myType;
+    };
 } // namespace BoundedQueue
 
 #endif // ARDUINO_BOUNDED_QUEUE_ELEMENT_H

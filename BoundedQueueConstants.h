@@ -40,6 +40,10 @@ namespace BoundedQueue
 #define MAX_TAG_SIZE 32
 
 #define QUEUE_DEBUG false
+
+#ifndef NULL
+#define NULL 0
+#endif
 }
 
 #endif // ARDUINO_BOUNDED_QUEUE_CONSTANTS_H

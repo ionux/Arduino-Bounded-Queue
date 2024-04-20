@@ -30,8 +30,7 @@
 
 int main(int argc, char *argv[])
 {
-
-    
+    // TODO: Run all unit tests.
 
     return 0;
 }
